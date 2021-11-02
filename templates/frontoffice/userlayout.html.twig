@@ -1,0 +1,15 @@
+{# templates/frontoffice/userlayout.html.twig #}
+
+{% extends "baselayout.html.twig" %}
+   
+{% block menu %} 
+          <ul>
+            <li><a href="{{ path('circuitlist') }}">Circuits</a></li>
+            <li><a href="{{ path('programmationlist') }}">Programmations</a></li>
+            <li><a href="{{ path('admin_home') }}">Administration</a></li>
+          </ul>
+  
+{% endblock %}{# menu #}
+
+{% block footer %}
+{% endblock %}

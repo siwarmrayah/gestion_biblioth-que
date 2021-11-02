@@ -1,0 +1,128 @@
+{# templates/backoffice/circuitshow.html.twig #}
+
+{% extends "backoffice/adminlayout.html.twig" %}
+
+{#
+  {{ dump(circuit) }}
+#}
+{% block title %}{{ parent() }} - Details for circuit {{ id }}{% endblock %}
+
+{# Factorise part about circuit etapes for readability #}
+{% block circuit_etapes %}
+    {% if circuit.etapes is not empty %}
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Num&eacute;ro &eacute;tape</th>
+					<th>Ville &eacute;tape</th>
+					<th>Nombre de jours</th>
+					<th><!-- Action widgets --></th>
+				</tr>
+			</thead>
+			{%  for etape in circuit.etapes %}
+			<tr>
+				<td>{{ etape.numeroEtape }}</td>
+				<td>{{ etape.villeEtape  }}</td>
+				<td>{{ etape.nombreJours }}</td>
+				<td>{# dump(etape) #}
+					<form action="{{ path('admin_etapedelete', { 'id' : etape.id }) }}"
+						method="POST">
+						<button type="submit" class="btn btn-danger">delete	etape</button>
+						<input type="hidden" id="_method" name="_method" value="DELETE" />
+					</form>
+				</td>
+			</tr>
+			{% endfor %} {# circuit.etapes #}
+		</table>
+		{% else %}
+			<p>Désolé : pas encore d'étapes pour ce circuit.</p>
+		{% endif %}
+		
+		<form action="{{ path('admin_etapenew', { 'circuit_id' : id }) }}"
+			method="GET">
+			<button class="btn btn-default" type="submit">Ajout étape</button>
+		</form>
+		
+{% endblock %} {# circuit_etapes #}
+
+{# Factorise part about circuit programmations for readability #}
+{% block circuit_programmations %}
+		
+	{% if circuit.programmations is not empty %}
+		<h2>Programmations de ce circuit</h2>
+		{# <pre>{{ dump(circuit) }}</pre> #}
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Date de départ</th>
+					<th>Nombre de personnes</th>
+					<th>Prix</th>
+				</tr>
+			</thead>
+			{%  for programmation in circuit.programmations %}
+			<tr>
+				<td>{{ programmation.dateDepart|date('d-m-Y')  }}</td>
+				<td>{{ programmation.nombrePersonnes }}</td>
+				<td>{{ programmation.prix }} euros</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% else %}
+			<p>Désolé : pas encore de programmations pour ce circuit.</p>
+		{% endif %}
+		
+		{# TODO : formulaire ajout nouvelle programmation de ce circuit #}
+		
+{% endblock %} {# circuit_programmations #}
+
+{# Now the main structure of the page #}
+{% block main %}
+    <h1>Circuit	{{ circuit.description }}</h1>
+
+	{# On the left, the data (10 columns), and on the right buttons (2 columns) #}    
+    <div class="row">
+    	<div class="col-md-10">
+    
+    		<h2>Détails</h2>
+    
+    		<dl class="dl-horizontal">
+    			<dt>Description</dt> <dd>{{ circuit.description }}</dd>
+    			<dt>Pays</dt> <dd>	{{ circuit.paysDepart }}</dd>
+    			<dt>Durée</dt>	<dd>{{ circuit.dureeCircuit }} j.	</dd>
+    			<dt>Ville de départ</dt> <dd>{{ circuit.villeDepart }}</dd>
+    			<dt>Ville d'arrivée</dt>	<dd>{{ circuit.villeArrivee }}</dd>
+    		</dl>
+    		
+    		<h3>&Eacute;tapes de ce circuit</h3>
+    		
+                {{ block('circuit_etapes') }}
+    
+    		<h3>Programmations</h3>
+    		
+    			{{ block('circuit_programmations') }}
+    			
+    	</div>	<!-- /.col-md-10 -->
+    	
+    	{# Columns on the  right #}
+    	<div class="col-md-2">
+    		<h2>Actions :</h2>
+    		<p>
+    		<form action="{{ path('admin_circuitmodify', { 'id' : id }) }}"
+    			method="GET">
+    			<button type="submit" class="btn btn-warning btn-block">modify circuit</button>
+    		</form>
+    		</p>
+    		<p>
+    		<form action="{{ path('admin_circuitdelete', { 'id' : id }) }}"
+    			method="POST">
+    			<button type="submit" class="btn btn-danger btn-block">delete	circuit</button>
+    			<!-- Hiddent fake DELETE action simulation HTTP DELETE method -->
+    			<input type="hidden" id="_method" name="_method" value="DELETE" />
+    		</form>
+    		</p>
+    	</div>	<!-- /.col-md-2  -->
+    	
+    </div> <!-- /.row  -->
+    
+{% endblock %}{# main #}

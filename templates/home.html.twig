@@ -1,0 +1,16 @@
+{# templates/home.html.twig #}
+
+{# Template de la page d'accueil de l'application #}
+
+{% extends "baselayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Welcome{% endblock %}
+
+{% block main %}
+
+<ul>
+	<li><a href="{{ path('circuitlist') }}">Liste des circuits</a></li>
+	<li><a href="{{ path('programmationlist') }}">Liste des circuits programmés</a></li>
+</ul>
+
+{% endblock %} {# main #}

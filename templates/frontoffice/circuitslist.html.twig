@@ -1,0 +1,24 @@
+{# templates/frontoffice/circuitslist.html.twig #}
+
+{% extends "frontoffice/userlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - Circuits list{% endblock %}
+
+{% block main %}
+
+    <h1>List of circuits</h1>
+
+    {% if circuitslist is not empty %}
+        <p>Here are all your circuits:</p>
+        <ul>
+        {# Loop through list and creeate the list of circuit items. #}
+        {% for circuit in circuitslist %}
+            <li>
+          		<a href="{{ path('circuitshow', { 'id' : circuit.id }) }}">{{ circuit.description }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Sorry, you don't have any circuits yet!</p>
+    {% endif %}
+{% endblock %} {# main #}

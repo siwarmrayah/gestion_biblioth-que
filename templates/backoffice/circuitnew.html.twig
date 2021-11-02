@@ -1,0 +1,13 @@
+{# templates/backoffice/circuitnew.html.twig #}
+
+{% extends "backoffice/adminlayout.html.twig" %}
+
+{% block title %}{{ parent() }} - New circuit{% endblock %}
+
+{% block main %}
+
+  <h1>New circuit</h1>
+
+  {% include 'backoffice/circuitform.html.twig' %}
+
+{% endblock %} {# main #}

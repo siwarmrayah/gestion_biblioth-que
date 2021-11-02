@@ -1,0 +1,16 @@
+{# templates/frontoffice/programmationshow.html.twig #}
+
+{% extends "frontoffice/userlayout.html.twig" %}
+
+
+{% block title %}{{ parent() }} - Programmation de {{ programmation.circuit.description }}{% endblock %}
+
+{% block main %}
+    <h1>Programmation de {{ programmation.circuit.description }}</h1>
+
+	<p>{{ programmation.circuit.description }} le {{ programmation.dateDepart|date('d-m-Y')  }}, 
+  	pour {{ programmation.nombrePersonnes }} personnes, à {{ programmation.prix }} euros.</p>
+    
+  	<p><a href="{{ path('circuitshow', { 'id' : programmation.circuit.id }) }}">Circuit details</a></p>
+
+{% endblock %} {# main #}

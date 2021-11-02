@@ -1,0 +1,26 @@
+{# templates/backoffice/adminlayout.html.twig #}
+
+{% extends "baselayout.html.twig" %}
+
+{% block menu %} 
+         <ul>
+            <li><a href="{{ path('admin_circuitlist') }}">Administration Circuit</a> </li>
+            <li><a href="#{# path('admin_programmationlist') #}">Administration Programmations</a></li>
+            <li><a href="{{ path('circuitlist') }}">Vue utilisateur</a></li>
+          </ul>
+    
+	{# Display messages resulting from redirects after C(R)UD actions #}
+    {% for message in app.session.flashbag.get('message') %}
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+
+{% endblock %}{# menu #}
+
+{% block footer %}
+{% endblock %}
